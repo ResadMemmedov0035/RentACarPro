@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Models]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[BrandId] INT NOT NULL,
+	[SeriesId] INT NULL,
+	[Name] NVARCHAR(50) NOT NULL, 
+    CONSTRAINT [FK_Models_Brands] FOREIGN KEY (BrandId) REFERENCES Brands(Id),
+    CONSTRAINT [FK_Models_Series] FOREIGN KEY (SeriesId) REFERENCES Series(Id)
+)
