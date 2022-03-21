@@ -9,6 +9,10 @@ namespace RentACarPro.Business.Abstract
 {
     public interface ISeriesService
     {
-        public List<Series> GetAllSeries();
+        List<Series> GetAllSeries();
+        Series? GetSeriesById(int id);
+        void AddSeries(Series series);
+        void UpdateSeries(Series series);
+        void DeleteSeries(Series series);
     }
 }

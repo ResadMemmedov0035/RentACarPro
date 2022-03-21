@@ -24,9 +24,9 @@ namespace RentACarPro.DataAccess.Concrete.InMemory
             };
         }
 
-        public Car Get(Expression<Func<Car, bool>> filter)
+        public Car? Get(Expression<Func<Car, bool>> filter)
         {
-            return _cars.First(filter.Compile());
+            return _cars.SingleOrDefault(filter.Compile());
         }
 
         public List<Car> GetAll(Expression<Func<Car, bool>>? filter = null)

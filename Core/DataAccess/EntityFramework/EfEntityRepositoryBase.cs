@@ -34,10 +34,10 @@ namespace Core.DataAccess.EntityFramework
             context.SaveChanges();
         }
 
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity? Get(Expression<Func<TEntity, bool>> filter)
         {
             using var context = new TDbContext();
-            return context.Set<TEntity>().Single(filter);
+            return context.Set<TEntity>().SingleOrDefault(filter);
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)

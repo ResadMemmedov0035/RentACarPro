@@ -5,16 +5,36 @@ using RentACarPro.Entities.Concrete;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
 
-ISeriesService seriesService = new SeriesManager(new EfSeriesDal());
-foreach (var series in seriesService.GetAllSeries())
-{
-    Console.WriteLine("{0} - {1} [{2}]", series.Id, series.Name, series.BrandId);
-}
 
-ICarService carService = new CarManager(new EfCarDal());
+var efSeriesDal = new EfSeriesDal();
 
-List<Car> cars = carService.GetCarsByBrandId(2); // 2 => Toyota
-PrintCars(cars);
+//efSeriesDal.Add(new Series { BrandId = 1, Name = "Five" });
+
+efSeriesDal.Update(new Series { Id = 15, BrandId = 1, Name = "adfsad" });
+
+//Console.WriteLine(efSeriesDal.Get(x => x.Id == 2332));
+
+//foreach (var item in efSeriesDal.GetAll(x => x.Id == 200)) // return empty list
+//{
+//    Console.WriteLine(item);
+//}
+
+
+//ISeriesService seriesService = new SeriesManager(new EfSeriesDal());
+
+////seriesService.AddSeries(new Series { Name = "T", BrandId = 1 });
+////seriesService.UpdateSeries(new Series { Id = 5, BrandId = 2, Name = "Test Updated" });
+
+//foreach (var series in seriesService.GetAllSeries())
+//{
+//    Console.WriteLine("{0} - {1} [{2}]", series.Id, series.Name, series.BrandId);
+
+//}
+
+//ICarService carService = new CarManager(new EfCarDal());
+
+//List<Car> cars = carService.GetCarsByBrandId(2); // 2 => Toyota
+//PrintCars(cars);
 
 
 /*  InMemory data access testing
@@ -46,7 +66,7 @@ _carDal.Delete(new Car { Id = 2 }); // delete exist ones
 PrintCars(_carDal.GetAll());
 
 Console.WriteLine(_carDal.Get(c => c.Id == 3).Description); // return first element that satisfy the condition
-//Console.WriteLine(_carDal.Get(c => c.Id == -22).Description); // throws an exception { 'Sequence contains no matching element' }
+//Console.WriteLine(_carDal.Get(c => c.Id == -22).Description); // return null
 
 PrintCars(_carDal.GetAll(c => c.Id < 3)); // return elements that satisfy the condition
 PrintCars(_carDal.GetAll(c => c.Id < -1)); // return empty list

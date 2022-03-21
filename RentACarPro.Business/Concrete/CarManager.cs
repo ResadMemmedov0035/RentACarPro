@@ -18,19 +18,42 @@ namespace RentACarPro.Business.Concrete
             _carDal = carDal;
         }
 
+        public void AddCar(Car car)
+        {
+            //business rules...
+            _carDal.Add(car);
+        }
+
+        public void UpdateCar(Car car)
+        {
+            //business rules
+            _carDal.Update(car);
+        }
+
+        public void DeleteCar(Car car)
+        {
+            //business rules...
+            _carDal.Delete(car);
+        }
+
         public List<Car> GetAllCars()
         {
             return _carDal.GetAll();
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public List<Car> GetAllCarsByBrandId(int brandId)
         {
             return _carDal.GetAll(c => c.BrandId == brandId);
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public List<Car> GetAllCarsByColorId(int colorId)
         {
             return _carDal.GetAll(c => c.ColorId == colorId);
+        }
+
+        public Car? GetCarById(int id)
+        {
+            return _carDal.Get(c => c.Id == id);
         }
     }
 }

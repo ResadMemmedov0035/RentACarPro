@@ -10,7 +10,11 @@ namespace RentACarPro.Business.Abstract
     public interface ICarService
     {
         List<Car> GetAllCars();
-        List<Car> GetCarsByBrandId(int brandId);
-        List<Car> GetCarsByColorId(int colorId);
+        List<Car> GetAllCarsByBrandId(int brandId);
+        List<Car> GetAllCarsByColorId(int colorId);
+        Car? GetCarById(int id);
+        void AddCar(Car car);
+        void UpdateCar(Car car);
+        void DeleteCar(Car car);
     }
 }
