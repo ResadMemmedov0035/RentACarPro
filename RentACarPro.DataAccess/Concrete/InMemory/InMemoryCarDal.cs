@@ -1,5 +1,6 @@
 ﻿using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
+using RentACarPro.Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -61,6 +62,11 @@ namespace RentACarPro.DataAccess.Concrete.InMemory
             itemToUpdate.ModelYear = car.ModelYear;
             itemToUpdate.DailyPrice = car.DailyPrice;
             itemToUpdate.Description = car.Description;
+        }
+
+        public List<CarDetailDto> GetAllCarDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }

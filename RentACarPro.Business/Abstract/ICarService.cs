@@ -1,4 +1,6 @@
-﻿using RentACarPro.Entities.Concrete;
+﻿using Core.Utilities.Results;
+using RentACarPro.Entities.Concrete;
+using RentACarPro.Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,13 @@ namespace RentACarPro.Business.Abstract
 {
     public interface ICarService
     {
-        List<Car> GetAllCars();
-        List<Car> GetAllCarsByBrandId(int brandId);
-        List<Car> GetAllCarsByColorId(int colorId);
-        Car? GetCarById(int id);
-        void AddCar(Car car);
-        void UpdateCar(Car car);
-        void DeleteCar(Car car);
+        IDataResult<List<Car>> GetAllCars();
+        IDataResult<List<Car>> GetAllCarsByBrandId(int brandId);
+        IDataResult<List<Car>> GetAllCarsByColorId(int colorId);
+        IDataResult<List<CarDetailDto>> GetAllCarDetails();
+        IDataResult<Car?> GetCarById(int id);
+        IResult AddCar(Car car);
+        IResult UpdateCar(Car car);
+        IResult DeleteCar(Car car);
     }
 }

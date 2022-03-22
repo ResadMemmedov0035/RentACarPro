@@ -1,4 +1,5 @@
-﻿using RentACarPro.Entities.Concrete;
+﻿using Core.Utilities.Results;
+using RentACarPro.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace RentACarPro.Business.Abstract
 {
     public interface ISeriesService
     {
-        List<Series> GetAllSeries();
-        Series? GetSeriesById(int id);
-        void AddSeries(Series series);
-        void UpdateSeries(Series series);
-        void DeleteSeries(Series series);
+        IDataResult<List<Series>> GetAllSeries();
+        IDataResult<Series?> GetSeriesById(int id);
+        IResult AddSeries(Series series);
+        IResult UpdateSeries(Series series);
+        IResult DeleteSeries(Series series);
     }
 }

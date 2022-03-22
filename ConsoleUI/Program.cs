@@ -6,11 +6,25 @@ using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
 
 
-var efSeriesDal = new EfSeriesDal();
+ICarService carService = new CarManager(new EfCarDal());
+
+//carService.AddCar(new Car { BrandId = 3, ModelId = 9, ColorId = 1 });
+
+foreach (var carDetail in carService.GetAllCarDetails())
+{
+    Console.WriteLine("{0} - {1} {2} ({3}) [{6}], {4}AZN | {5}",
+        carDetail.Id, carDetail.BrandName, carDetail.ModelName, carDetail.ModelYear, carDetail.DailyPrice, carDetail.Description[..25], carDetail.ColorName);
+}
+
+
+
+
+
+//var efSeriesDal = new EfSeriesDal();
 
 //efSeriesDal.Add(new Series { BrandId = 1, Name = "Five" });
 
-efSeriesDal.Update(new Series { Id = 15, BrandId = 1, Name = "adfsad" });
+//efSeriesDal.Update(new Series { Id = 15, BrandId = 1, Name = "adfsad" });
 
 //Console.WriteLine(efSeriesDal.Get(x => x.Id == 2332));
 
@@ -37,8 +51,7 @@ efSeriesDal.Update(new Series { Id = 15, BrandId = 1, Name = "adfsad" });
 //PrintCars(cars);
 
 
-/*  InMemory data access testing
- * 
+/*  
 RentACarProDbContext db = new RentACarProDbContext();
 foreach (var car in db.Cars)
 {

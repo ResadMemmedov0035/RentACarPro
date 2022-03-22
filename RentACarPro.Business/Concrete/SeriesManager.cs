@@ -1,4 +1,6 @@
-﻿using RentACarPro.Business.Abstract;
+﻿using Core.Utilities.Results;
+using RentACarPro.Business.Abstract;
+using RentACarPro.Business.Constants;
 using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
 using System;
@@ -18,35 +20,61 @@ namespace RentACarPro.Business.Concrete
             _seriesDal = seriesDal;
         }
 
-        public void AddSeries(Series series)
+        public IDataResult<List<Series>> GetAllSeries()
         {
-            if (series.Name.Length < 2) 
-                throw new Exception("Series name length must be greater than 2");
-
-            _seriesDal.Add(series);
+            return new SuccessDataResult<List<Series>>(_seriesDal.GetAll());
         }
 
-        public void DeleteSeries(Series series)
+        public IDataResult<Series?> GetSeriesById(int id)
         {
-            _seriesDal.Delete(series);
+            return new SuccessDataResult<Series?>(_seriesDal.Get(s => s.Id == id));
         }
 
-        public List<Series> GetAllSeries()
+        public IResult AddSeries(Series series)
         {
-            return _seriesDal.GetAll();
+            try
+            {
+                if (series.Name.Length < 2)
+                    throw new Exception("Series name length must be greater than 2");
+
+                _seriesDal.Add(series);
+                return new SuccessResult(Messages.AddSuccess);
+            }
+            catch (Exception e)
+            {
+                return new ErrorResult(e.Message);
+            }
         }
 
-        public Series? GetSeriesById(int id)
+        public IResult DeleteSeries(Series series)
         {
-            return _seriesDal.Get(s => s.Id == id);
+            try
+            {
+                _seriesDal.Delete(series);
+                return new SuccessResult(Messages.DeleteSuccess);
+            }
+            catch (Exception e)
+            {
+                return new ErrorResult(e.Message);
+            }
+            
         }
 
-        public void UpdateSeries(Series series)
+        public IResult UpdateSeries(Series series)
         {
-            if (series.Name.Length < 2)
-                throw new Exception("Series name length must be greater than 2");
+            try
+            {
+                if (series.Name.Length < 2)
+                    throw new Exception("Series name length must be greater than 2");
 
-            _seriesDal.Update(series);
+                _seriesDal.Update(series);
+                return new SuccessResult(Messages.UpdateSuccess);
+            }
+            catch (Exception e)
+            {
+                return new ErrorResult(e.Message);
+            }
+            
         }
     }
 }
