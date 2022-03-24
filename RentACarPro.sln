@@ -15,6 +15,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RentACarPro.SqlProject", "R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{E38C3C22-50CE-462F-BDC4-0BE01B88EC12}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentACarPro.WebAPI", "RentACarPro.WebAPI\RentACarPro.WebAPI.csproj", "{C2924425-15C0-4256-8CB9-44E904989526}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{E38C3C22-50CE-462F-BDC4-0BE01B88EC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E38C3C22-50CE-462F-BDC4-0BE01B88EC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E38C3C22-50CE-462F-BDC4-0BE01B88EC12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2924425-15C0-4256-8CB9-44E904989526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2924425-15C0-4256-8CB9-44E904989526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2924425-15C0-4256-8CB9-44E904989526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2924425-15C0-4256-8CB9-44E904989526}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

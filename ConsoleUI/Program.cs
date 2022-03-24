@@ -10,7 +10,7 @@ ICarService carService = new CarManager(new EfCarDal());
 
 //carService.AddCar(new Car { BrandId = 3, ModelId = 9, ColorId = 1 });
 
-foreach (var carDetail in carService.GetAllCarDetails())
+foreach (var carDetail in carService.GetAllCarDetails().Data)
 {
     Console.WriteLine("{0} - {1} {2} ({3}) [{6}], {4}AZN | {5}",
         carDetail.Id, carDetail.BrandName, carDetail.ModelName, carDetail.ModelYear, carDetail.DailyPrice, carDetail.Description[..25], carDetail.ColorName);

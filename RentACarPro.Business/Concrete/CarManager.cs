@@ -23,27 +23,28 @@ namespace RentACarPro.Business.Concrete
 
         public IDataResult<List<Car>> GetAllCars()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.AllRecieved);
         }
 
         public IDataResult<List<Car>> GetAllCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), Messages.AllRecieved);
         }
 
         public IDataResult<List<Car>> GetAllCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.AllRecieved);
         }
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.AllRecieved);
         }
 
         public IDataResult<Car?> GetCarById(int id)
         {
-            return new SuccessDataResult<Car?>(_carDal.Get(c => c.Id == id));
+            var item = _carDal.Get(c => c.Id == id);
+            return new SuccessDataResult<Car?>(item, item != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
         public IResult AddCar(Car car)
