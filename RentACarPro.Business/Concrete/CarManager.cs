@@ -1,6 +1,9 @@
-﻿using Core.Utilities.Results;
+﻿using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Results;
+using FluentValidation;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
+using RentACarPro.Business.ValidationRules.FluentValidation;
 using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
 using RentACarPro.Entities.DTOs;
@@ -51,8 +54,14 @@ namespace RentACarPro.Business.Concrete
         {
             try
             {
+                ValidationTool.Validate(new CarValidator(), car);
+
                 _carDal.Add(car);
                 return new SuccessResult(Messages.AddSuccess);
+            }
+            catch (ValidationException e)
+            {
+                return new ErrorResult(e.Errors.First().ErrorMessage);
             }
             catch (Exception e)
             {
