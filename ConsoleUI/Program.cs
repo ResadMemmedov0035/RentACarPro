@@ -6,6 +6,8 @@ using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
 
 
+
+/*
 IRentalService rentalService = new RentalManager(new EfRentalDal());
 
 var result = rentalService.AddRental(new Rental 
@@ -16,7 +18,7 @@ var result = rentalService.AddRental(new Rental
 });
 
 Console.WriteLine(result.Message);
-
+*/
 
 
 

@@ -1,4 +1,5 @@
-﻿using Core.CrossCuttingConcerns.Validation;
+﻿using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using FluentValidation;
 using RentACarPro.Business.Abstract;
@@ -50,23 +51,23 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<Car?>(item, item != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult AddCar(Car car)
         {
-            try
-            {
-                ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.AddSuccess);
+            //try
+            //{
 
-                _carDal.Add(car);
-                return new SuccessResult(Messages.AddSuccess);
-            }
-            catch (ValidationException e)
-            {
-                return new ErrorResult(e.Errors.First().ErrorMessage);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+            //}
+            //catch (ValidationException e)
+            //{
+            //    return new ErrorResult(e.Errors.First().ErrorMessage);
+            //}
+            //catch (Exception e)
+            //{
+            //    return new ErrorResult(e.Message);
+            //}
         }
 
         public IResult UpdateCar(Car car)

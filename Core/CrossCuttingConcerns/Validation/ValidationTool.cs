@@ -9,9 +9,9 @@ namespace Core.CrossCuttingConcerns.Validation
 {
     public static class ValidationTool
     {
-        public static void Validate<T>(IValidator<T> validator, T item)
+        public static void Validate(IValidator validator, object item)
         { 
-            var result = validator.Validate(item);
+            var result = validator.Validate(new ValidationContext<object>(item));
 
             if (!result.IsValid)
             { 
