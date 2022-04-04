@@ -20,12 +20,12 @@ namespace RentACarPro.Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        public IDataResult<List<Rental>> GetAllRentals()
+        public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ItemRecieved);
         }
 
-        public IResult AddRental(Rental rental)
+        public IResult Add(Rental rental)
         {
             var rentals = _rentalDal.GetAll();
 

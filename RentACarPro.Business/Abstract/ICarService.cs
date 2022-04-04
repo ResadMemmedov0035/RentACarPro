@@ -11,13 +11,13 @@ namespace RentACarPro.Business.Abstract
 {
     public interface ICarService
     {
-        IDataResult<List<Car>> GetAllCars();
-        IDataResult<List<Car>> GetAllCarsByBrandId(int brandId);
-        IDataResult<List<Car>> GetAllCarsByColorId(int colorId);
-        IDataResult<List<CarDetailDto>> GetAllCarDetails();
-        IDataResult<Car?> GetCarById(int id);
-        IResult AddCar(Car car);
-        IResult UpdateCar(Car car);
-        IResult DeleteCar(Car car);
+        IDataResult<List<Car>> GetAll();
+        IDataResult<List<Car>> GetAllByBrandId(int brandId);
+        IDataResult<List<Car>> GetAllByColorId(int colorId);
+        IDataResult<List<CarDetailDto>> GetAllDetails();
+        IDataResult<Car?> GetById(int id);
+        IResult Add(Car car);
+        IResult Update(Car car);
+        IResult Delete(Car car);
     }
 }

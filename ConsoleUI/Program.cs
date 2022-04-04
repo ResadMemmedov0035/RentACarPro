@@ -6,6 +6,9 @@ using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
 
 
+IUserService userService = new UserManager(new EfUserDal());
+userService.Add(new User { Email = "rm@mail.com" });
+
 
 /*
 IRentalService rentalService = new RentalManager(new EfRentalDal());

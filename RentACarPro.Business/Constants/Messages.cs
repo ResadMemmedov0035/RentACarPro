@@ -14,5 +14,7 @@ namespace RentACarPro.Business.Constants
         public const string AllRecieved = "All items were received.";
         public const string ItemRecieved = "Item was received.";
         public const string NullRecieved = "Item was received but it has null value.";
+        public const string ErrorCarModelYear = "Car model year must be lower than current year.";
+        public const string UserEmailAlreadyExists = "User email has already exists.";
     }
 }

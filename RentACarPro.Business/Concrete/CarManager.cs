@@ -25,75 +25,50 @@ namespace RentACarPro.Business.Concrete
             _carDal = carDal;
         }
 
-        public IDataResult<List<Car>> GetAllCars()
+        public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.AllRecieved);
         }
 
-        public IDataResult<List<Car>> GetAllCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetAllByBrandId(int brandId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), Messages.AllRecieved);
         }
 
-        public IDataResult<List<Car>> GetAllCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetAllByColorId(int colorId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.AllRecieved);
         }
 
-        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
+        public IDataResult<List<CarDetailDto>> GetAllDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.AllRecieved);
         }
 
-        public IDataResult<Car?> GetCarById(int id)
+        public IDataResult<Car?> GetById(int id)
         {
             var item = _carDal.Get(c => c.Id == id);
             return new SuccessDataResult<Car?>(item, item != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public IResult AddCar(Car car)
+        public IResult Add(Car car)
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.AddSuccess);
-            //try
-            //{
-
-            //}
-            //catch (ValidationException e)
-            //{
-            //    return new ErrorResult(e.Errors.First().ErrorMessage);
-            //}
-            //catch (Exception e)
-            //{
-            //    return new ErrorResult(e.Message);
-            //}
         }
 
-        public IResult UpdateCar(Car car)
+        [ValidationAspect(typeof(CarValidator))]
+        public IResult Update(Car car)
         {
-            try
-            {
-                _carDal.Update(car);
-                return new SuccessResult(Messages.UpdateSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+            _carDal.Update(car);
+            return new SuccessResult(Messages.UpdateSuccess);
         }
 
-        public IResult DeleteCar(Car car)
+        public IResult Delete(Car car)
         {
-            try
-            {
-                _carDal.Delete(car);
-                return new SuccessResult(Messages.DeleteSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.DeleteSuccess);
         }
     }
 }

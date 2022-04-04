@@ -10,7 +10,7 @@ namespace RentACarPro.Business.Abstract
 {
     public interface IRentalService
     {
-        IDataResult<List<Rental>> GetAllRentals();
-        IResult AddRental(Rental rental);
+        IDataResult<List<Rental>> GetAll();
+        IResult Add(Rental rental);
     }
 }

@@ -20,18 +20,18 @@ namespace RentACarPro.Business.Concrete
             _customerDal = customerDal;
         }
 
-        public IDataResult<List<Customer>> GetAllCustomers()
+        public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.AllRecieved);
         }
 
-        public IDataResult<Customer?> GetCustomerById(int id)
+        public IDataResult<Customer?> GetById(int id)
         {
             var data = _customerDal.Get(c => c.Id == id);
             return new SuccessDataResult<Customer?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
-        public IResult AddCustomer(Customer customer)
+        public IResult Add(Customer customer)
         {
             try
             {

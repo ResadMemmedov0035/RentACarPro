@@ -20,17 +20,17 @@ namespace RentACarPro.Business.Concrete
             _seriesDal = seriesDal;
         }
 
-        public IDataResult<List<Series>> GetAllSeries()
+        public IDataResult<List<Series>> GetAll()
         {
             return new SuccessDataResult<List<Series>>(_seriesDal.GetAll());
         }
 
-        public IDataResult<Series?> GetSeriesById(int id)
+        public IDataResult<Series?> GetById(int id)
         {
             return new SuccessDataResult<Series?>(_seriesDal.Get(s => s.Id == id));
         }
 
-        public IResult AddSeries(Series series)
+        public IResult Add(Series series)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace RentACarPro.Business.Concrete
             }
         }
 
-        public IResult DeleteSeries(Series series)
+        public IResult Delete(Series series)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace RentACarPro.Business.Concrete
             
         }
 
-        public IResult UpdateSeries(Series series)
+        public IResult Update(Series series)
         {
             try
             {

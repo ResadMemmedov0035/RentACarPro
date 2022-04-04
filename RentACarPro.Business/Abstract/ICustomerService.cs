@@ -10,8 +10,8 @@ namespace RentACarPro.Business.Abstract
 {
     public interface ICustomerService
     {
-        IDataResult<List<Customer>> GetAllCustomers();
-        IDataResult<Customer?> GetCustomerById(int id);
-        IResult AddCustomer(Customer customer);
+        IDataResult<List<Customer>> GetAll();
+        IDataResult<Customer?> GetById(int id);
+        IResult Add(Customer customer);
     }
 }

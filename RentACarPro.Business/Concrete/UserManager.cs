@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Utilities.Business;
+using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
 using RentACarPro.DataAccess.Abstract;
@@ -20,28 +21,34 @@ namespace RentACarPro.Business.Concrete
             _userDal = userDal;
         }
 
-        public IDataResult<List<User>> GetAllUsers()
+        public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.AllRecieved);
         }
 
-        public IDataResult<User?> GetUserById(int id)
+        public IDataResult<User?> GetById(int id)
         {
             var data = _userDal.Get(u => u.Id == id);
             return new SuccessDataResult<User?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
-        public IResult AddUser(User user)
+        public IResult Add(User user)
         {
-            try
-            {
-                _userDal.Add(user);
-                return new SuccessResult(Messages.AddSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+            IResult? errorResult = BusinessRule.Run(
+                () => CheckIfEmailExists(user.Email), 
+                () => CheckIfEmailExists(user.Email));
+
+            if (errorResult != null) return errorResult;
+
+            _userDal.Add(user);
+            return new SuccessResult(Messages.AddSuccess);
+        }
+
+        private IResult CheckIfEmailExists(string email)
+        {
+            return _userDal.GetAll(u => u.Email == email).Any() ?
+                new ErrorResult(Messages.UserEmailAlreadyExists) :
+                new SuccessResult();
         }
     }
 }
