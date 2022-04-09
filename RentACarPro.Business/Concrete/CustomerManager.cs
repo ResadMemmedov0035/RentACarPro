@@ -1,6 +1,8 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
+using RentACarPro.Business.ValidationRules.FluentValidation;
 using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
 using System;
@@ -31,17 +33,11 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<Customer?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            try
-            {
-                _customerDal.Add(customer);
-                return new SuccessResult(Messages.AddSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+            _customerDal.Add(customer);
+            return new SuccessResult(Messages.AddSuccess);
         }
     }
 }

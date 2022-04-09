@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[CarImages]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[CarId] INT NOT NULL,
+	[ImagePath] NVARCHAR(200) NOT NULL,
+	[Date] DATETIME2 NOT NULL, 
+    CONSTRAINT [FK_CarImages_Cars] FOREIGN KEY (CarId) REFERENCES Cars(Id)
+)

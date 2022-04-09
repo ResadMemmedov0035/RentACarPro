@@ -5,9 +5,11 @@ using RentACarPro.Entities.Concrete;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
 
+//File.Create(@"C:\Users\hp\Desktop\Test.jpg");
+File.Delete(@"C:\Users\hp\Desktop\Test.jpg");
 
-IUserService userService = new UserManager(new EfUserDal());
-userService.Add(new User { Email = "rm@mail.com" });
+//IUserService userService = new UserManager(new EfUserDal());
+//userService.Add(new User { Email = "rm@mail.com" });
 
 
 /*

@@ -1,6 +1,8 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
+using RentACarPro.Business.ValidationRules.FluentValidation;
 using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
 using System;
@@ -30,51 +32,24 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<Series?>(_seriesDal.Get(s => s.Id == id));
         }
 
+        [ValidationAspect(typeof(SeriesValidator))]
         public IResult Add(Series series)
         {
-            try
-            {
-                if (series.Name.Length < 2)
-                    throw new Exception("Series name length must be greater than 2");
+            _seriesDal.Add(series);
+            return new SuccessResult(Messages.AddSuccess);
+        }
 
-                _seriesDal.Add(series);
-                return new SuccessResult(Messages.AddSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
+        [ValidationAspect(typeof(SeriesValidator))]
+        public IResult Update(Series series)
+        {
+            _seriesDal.Update(series);
+            return new SuccessResult(Messages.UpdateSuccess);
         }
 
         public IResult Delete(Series series)
         {
-            try
-            {
-                _seriesDal.Delete(series);
-                return new SuccessResult(Messages.DeleteSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
-            
-        }
-
-        public IResult Update(Series series)
-        {
-            try
-            {
-                if (series.Name.Length < 2)
-                    throw new Exception("Series name length must be greater than 2");
-
-                _seriesDal.Update(series);
-                return new SuccessResult(Messages.UpdateSuccess);
-            }
-            catch (Exception e)
-            {
-                return new ErrorResult(e.Message);
-            }
-            
+            _seriesDal.Delete(series);
+            return new SuccessResult(Messages.DeleteSuccess);
         }
     }
 }

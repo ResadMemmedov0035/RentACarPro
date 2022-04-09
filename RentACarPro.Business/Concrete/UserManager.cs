@@ -1,7 +1,9 @@
-﻿using Core.Utilities.Business;
+﻿using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
+using RentACarPro.Business.ValidationRules.FluentValidation;
 using RentACarPro.DataAccess.Abstract;
 using RentACarPro.Entities.Concrete;
 using System;
@@ -32,10 +34,10 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<User?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             IResult? errorResult = BusinessRule.Run(
-                () => CheckIfEmailExists(user.Email), 
                 () => CheckIfEmailExists(user.Email));
 
             if (errorResult != null) return errorResult;
