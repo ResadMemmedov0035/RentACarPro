@@ -45,10 +45,10 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.AllRecieved);
         }
 
-        public IDataResult<Car?> GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
             var item = _carDal.Get(c => c.Id == id);
-            return new SuccessDataResult<Car?>(item, item != null ? Messages.ItemRecieved : Messages.NullRecieved);
+            return new SuccessDataResult<Car>(item, Messages.ItemRecieved);
         }
 
         [ValidationAspect(typeof(CarValidator))]

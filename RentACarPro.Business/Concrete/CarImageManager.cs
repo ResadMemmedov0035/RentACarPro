@@ -16,11 +16,11 @@ namespace RentACarPro.Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
-        private readonly string _defaultImage = "";
+        private readonly string _defaultImage = "default.png";
         private readonly ICarImageDal _carImageDal;
-        private readonly IFileHelper _fileHelper;
+        private readonly IFormFileHelper _fileHelper;
 
-        public CarImageManager(ICarImageDal carImageDal, IFileHelper fileHelper)
+        public CarImageManager(ICarImageDal carImageDal, IFormFileHelper fileHelper)
         {
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;
@@ -62,8 +62,10 @@ namespace RentACarPro.Business.Concrete
         public IResult Update(int id, IFormFile file)
         {
             var image = _carImageDal.Get(ci => ci.Id == id);
-            _fileHelper.Update(file, image.ImagePath);
+
+            image.ImagePath = _fileHelper.Update(file, image.ImagePath);
             _carImageDal.Update(image);
+
             return new SuccessResult(Messages.UpdateSuccess);
         }
 

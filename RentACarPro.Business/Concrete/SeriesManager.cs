@@ -27,9 +27,9 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<Series>>(_seriesDal.GetAll());
         }
 
-        public IDataResult<Series?> GetById(int id)
+        public IDataResult<Series> GetById(int id)
         {
-            return new SuccessDataResult<Series?>(_seriesDal.Get(s => s.Id == id));
+            return new SuccessDataResult<Series>(_seriesDal.Get(s => s.Id == id), Messages.ItemRecieved);
         }
 
         [ValidationAspect(typeof(SeriesValidator))]

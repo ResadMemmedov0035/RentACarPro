@@ -1,4 +1,5 @@
 ﻿using Core.Aspects.Autofac.Validation;
+using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
@@ -23,21 +24,11 @@ namespace RentACarPro.Business.Concrete
             _userDal = userDal;
         }
 
-        public IDataResult<List<User>> GetAll()
-        {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.AllRecieved);
-        }
-
-        public IDataResult<User?> GetById(int id)
-        {
-            var data = _userDal.Get(u => u.Id == id);
-            return new SuccessDataResult<User?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
-        }
-
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            IResult? errorResult = BusinessRule.Run(
+            // this might will change
+            var errorResult = BusinessRule.Run(
                 () => CheckIfEmailExists(user.Email));
 
             if (errorResult != null) return errorResult;
@@ -46,11 +37,21 @@ namespace RentACarPro.Business.Concrete
             return new SuccessResult(Messages.AddSuccess);
         }
 
+        public IDataResult<User> GetByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+        }
+
         private IResult CheckIfEmailExists(string email)
         {
             return _userDal.GetAll(u => u.Email == email).Any() ?
-                new ErrorResult(Messages.UserEmailAlreadyExists) :
-                new SuccessResult();
+                   new ErrorResult("Email exists") :
+                   new SuccessResult();
         }
     }
 }

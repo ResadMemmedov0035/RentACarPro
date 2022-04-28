@@ -27,10 +27,10 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.AllRecieved);
         }
 
-        public IDataResult<Customer?> GetById(int id)
+        public IDataResult<Customer> GetById(int id)
         {
             var data = _customerDal.Get(c => c.Id == id);
-            return new SuccessDataResult<Customer?>(data, data != null ? Messages.ItemRecieved : Messages.NullRecieved);
+            return new SuccessDataResult<Customer>(data, Messages.ItemRecieved);
         }
 
         [ValidationAspect(typeof(CustomerValidator))]

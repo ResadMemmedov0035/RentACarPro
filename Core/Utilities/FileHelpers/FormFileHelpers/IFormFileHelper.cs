@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Helpers.FormFileHelpers
 {
-    public interface IFileHelper
+    public interface IFormFileHelper
     {
         string Add(IFormFile file);
         string Update(IFormFile file, string oldFilePath);

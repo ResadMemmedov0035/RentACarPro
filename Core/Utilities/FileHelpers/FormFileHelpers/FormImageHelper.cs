@@ -1,14 +1,8 @@
-﻿using Core.Constants;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Core.Utilities.Helpers.FormFileHelpers
 {
-    public class ImageHelper : IFileHelper
+    public class FormImageHelper : IFormFileHelper
     {
         private readonly static string _basePath = Directory.GetCurrentDirectory() + "/wwwroot/";
         private readonly static string _imageFolder = "images/";
@@ -32,18 +26,17 @@ namespace Core.Utilities.Helpers.FormFileHelpers
 
         public string Update(IFormFile file, string oldFilePath)
         {
-            string newPath = Add(file);
             Delete(oldFilePath);
-            return newPath;
+            return Add(file);
         }
 
         private static void CheckIfImage(IFormFile file)
         {
-            var extentions = new string[] { ".jpg", ".jpeg", ".png" };
+            var extentions = new[] { ".jpg", ".jpeg", ".png" };
             var ext = Path.GetExtension(file.FileName);
 
             if (!extentions.Contains(ext))
-                throw new Exception(Messages.NotSupportedFileType);
+                throw new Exception("The file is not supported as an image.");
         }
 
         private static string CreateName(IFormFile file)

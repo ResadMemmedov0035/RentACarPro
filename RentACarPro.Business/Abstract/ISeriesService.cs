@@ -11,7 +11,7 @@ namespace RentACarPro.Business.Abstract
     public interface ISeriesService
     {
         IDataResult<List<Series>> GetAll();
-        IDataResult<Series?> GetById(int id);
+        IDataResult<Series> GetById(int id);
         IResult Add(Series series);
         IResult Update(Series series);
         IResult Delete(Series series);

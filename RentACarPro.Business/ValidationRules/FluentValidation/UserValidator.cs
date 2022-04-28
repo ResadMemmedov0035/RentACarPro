@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.Entities.Concrete;
+using FluentValidation;
 using RentACarPro.Entities.Concrete;
 
 namespace RentACarPro.Business.ValidationRules.FluentValidation
@@ -15,9 +16,6 @@ namespace RentACarPro.Business.ValidationRules.FluentValidation
             RuleFor(u => u.LastName).MaximumLength(50);
             RuleFor(u => u.Email).NotEmpty();
             RuleFor(u => u.Email).EmailAddress();
-            RuleFor(u => u.Password).NotEmpty();
-            RuleFor(u => u.Password).MinimumLength(8);
-            RuleFor(u => u.Password).MaximumLength(50);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using Core.DataAccess;
-using RentACarPro.Entities.Concrete;
+using Core.Entities.Concrete;
 
 namespace RentACarPro.DataAccess.Abstract
 {
     public interface IUserDal : IEntityRepository<User>
     {
-
+        List<OperationClaim> GetClaims(User user);
     }
 }

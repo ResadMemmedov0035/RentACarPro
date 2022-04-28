@@ -1,11 +1,10 @@
 ﻿using Core.Entities.Abstract;
 
-namespace RentACarPro.Entities.Concrete
+namespace Core.Entities.Concrete
 {
-    public class Series : IEntity
+    public class OperationClaim : IEntity
     {
         public int Id { get; set; }
-        public int BrandId { get; set; }
         public string Name { get; set; } = string.Empty;
     }
 }
