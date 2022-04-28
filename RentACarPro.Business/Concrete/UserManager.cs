@@ -27,9 +27,8 @@ namespace RentACarPro.Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            // this might will change
             var errorResult = BusinessRule.Run(
-                () => CheckIfEmailExists(user.Email));
+                () => CheckIfUserExists(user.Email));
 
             if (errorResult != null) return errorResult;
 
@@ -47,10 +46,10 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
-        private IResult CheckIfEmailExists(string email)
+        private IResult CheckIfUserExists(string email)
         {
             return _userDal.GetAll(u => u.Email == email).Any() ?
-                   new ErrorResult("Email exists") :
+                   new ErrorResult(Messages.UserAlreadyExists) :
                    new SuccessResult();
         }
     }
