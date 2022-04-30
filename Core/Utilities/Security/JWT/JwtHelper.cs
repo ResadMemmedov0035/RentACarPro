@@ -11,7 +11,7 @@ namespace Core.Utilities.Security.JWT
     public class JwtHelper : ITokenHelper
     {
         private readonly TokenOptions _tokenOptions;
-        private readonly DateTime _accessTokenExiration;
+        private readonly DateTime _accessTokenExpiration;
 
         public IConfiguration Configuration { get; }
 
@@ -19,25 +19,25 @@ namespace Core.Utilities.Security.JWT
         {
             Configuration = configuration;
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            _accessTokenExiration = DateTime.Now.AddMinutes(_tokenOptions.AccesTokenExpiration);
+            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
         }
 
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
             var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+
             var jwt = CreateJwtSecurityToken(_tokenOptions, signingCredentials, user, operationClaims);
-            string token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return new AccessToken
             {
-                Token = token,
-                Expiration = _accessTokenExiration
+                Token = new JwtSecurityTokenHandler().WriteToken(jwt),
+                Expiration = _accessTokenExpiration
             };
         }
 
-        public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, SigningCredentials signingCredentials,
-                                                       User user, List<OperationClaim> operationClaims)
+        private JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, SigningCredentials signingCredentials,
+                                                        User user, List<OperationClaim> operationClaims)
         {
             return new JwtSecurityToken
                 (
@@ -45,7 +45,7 @@ namespace Core.Utilities.Security.JWT
                 audience: tokenOptions.Audience,
                 signingCredentials: signingCredentials,
                 notBefore: DateTime.Now,
-                expires: _accessTokenExiration,
+                expires: _accessTokenExpiration,
                 claims: SetClaims(user, operationClaims)
                 );
         }

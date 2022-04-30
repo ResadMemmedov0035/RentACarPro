@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,5 +26,7 @@ namespace RentACarPro.Business.Constants
         public const string LoginSuccess = "Login has been successful.";
         public const string RegisterSuccess = "User has been registered.";
         public const string AccessTokenCreated = "Access token has been created.";
+
+        public const string AuthorizationDenied = "You have no access for this operation.";
     }
 }

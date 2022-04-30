@@ -20,7 +20,7 @@ namespace RentACarPro.Business.Concrete
         private readonly ICarImageDal _carImageDal;
         private readonly IFormFileHelper _fileHelper;
 
-        public CarImageManager(ICarImageDal carImageDal, IFormFileHelper fileHelper)
+        public CarImageManager(ICarImageDal carImageDal, IFormImageHelper fileHelper)
         {
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;

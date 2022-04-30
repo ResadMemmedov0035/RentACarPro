@@ -3,6 +3,7 @@ using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using FluentValidation;
 using RentACarPro.Business.Abstract;
+using RentACarPro.Business.Aspects.Autofac.Authorization;
 using RentACarPro.Business.Constants;
 using RentACarPro.Business.ValidationRules.FluentValidation;
 using RentACarPro.DataAccess.Abstract;
@@ -51,6 +52,7 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<Car>(item, Messages.ItemRecieved);
         }
 
+        [SecuredOperation("car.add")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {

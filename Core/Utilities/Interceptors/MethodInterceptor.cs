@@ -32,8 +32,9 @@ namespace Core.Utilities.Interceptors
                 {
                     OnSuccess(invocation);
                 }
+
+                OnAfter(invocation);
             }
-            OnAfter(invocation);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<AccessToken>(token, Messages.AccessTokenCreated);
         }
 
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
+        public IDataResult<User> Login(LoginDto userForLoginDto)
         {
             var result = _userService.GetByEmail(userForLoginDto.Email);
 
@@ -42,7 +42,7 @@ namespace RentACarPro.Business.Concrete
 
             var user = result.Data;
 
-            if (user == null || !HashingHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
+            if (user == null || !HashHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.LoginError);
             }
@@ -50,9 +50,9 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<User>(user, Messages.LoginSuccess);
         }
 
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
+        public IDataResult<User> Register(RegisterDto userForRegisterDto)
         {
-            HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out byte[] salt, out byte[] hash);
+            HashHelper.CreatePasswordHash(userForRegisterDto.Password, out byte[] salt, out byte[] hash);
 
             var user = new User
             {

@@ -12,8 +12,8 @@ namespace RentACarPro.Business.Abstract
 {
     public interface IAuthService
     {
-        IDataResult<User> Register(UserForRegisterDto userForRegisterDto);
-        IDataResult<User> Login(UserForLoginDto userForLoginDto);
+        IDataResult<User> Register(RegisterDto userForRegisterDto);
+        IDataResult<User> Login(LoginDto userForLoginDto);
         IDataResult<AccessToken> CreateAccessToken(User user);
     }
 }

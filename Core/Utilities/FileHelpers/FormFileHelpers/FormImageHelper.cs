@@ -2,7 +2,7 @@
 
 namespace Core.Utilities.Helpers.FormFileHelpers
 {
-    public class FormImageHelper : IFormFileHelper
+    public class FormImageHelper : IFormImageHelper
     {
         private readonly static string _basePath = Directory.GetCurrentDirectory() + "/wwwroot/";
         private readonly static string _imageFolder = "images/";

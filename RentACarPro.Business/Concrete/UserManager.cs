@@ -38,7 +38,9 @@ namespace RentACarPro.Business.Concrete
 
         public IDataResult<User> GetByEmail(string email)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+            try { return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email)); }
+            catch { return new ErrorDataResult<User>(); }
+            
         }
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)

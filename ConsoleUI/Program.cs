@@ -4,9 +4,27 @@ using RentACarPro.DataAccess.Concrete.EntityFramework;
 using RentACarPro.Entities.Concrete;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Concrete;
+using Core.Utilities.Security.Hashing;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
+
+ICarDal dal = new EfCarDal();
+var car = dal.Get(c => c.Id == 1212);
+
+//var securityKey = .CreateSecurityKey("ultrasecretkey");
+//var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+
+//Console.WriteLine(signingCredentials);
+
+
+//HashHelper.CreatePasswordHash("qwerty123", out byte[] salt, out byte[] hash);
+
+//Console.WriteLine(HashHelper.VerifyPasswordHash("qwerty123", salt, hash));
+
+
 
 //File.Create(@"C:\Users\hp\Desktop\Test.jpg");
-File.Delete(@"C:\Users\hp\Desktop\Test.jpg");
+//File.Delete(@"C:\Users\hp\Desktop\Test.jpg");
 
 //IUserService userService = new UserManager(new EfUserDal());
 //userService.Add(new User { Email = "rm@mail.com" });
