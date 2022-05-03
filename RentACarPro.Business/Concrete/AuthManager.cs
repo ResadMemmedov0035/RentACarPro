@@ -31,9 +31,9 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<AccessToken>(token, Messages.AccessTokenCreated);
         }
 
-        public IDataResult<User> Login(LoginDto userForLoginDto)
+        public IDataResult<User> Login(LoginDto loginDto)
         {
-            var result = _userService.GetByEmail(userForLoginDto.Email);
+            var result = _userService.GetByEmail(loginDto.Email);
 
             if (!result.Success)
             {
@@ -42,7 +42,7 @@ namespace RentACarPro.Business.Concrete
 
             var user = result.Data;
 
-            if (user == null || !HashHelper.VerifyPasswordHash(userForLoginDto.Password, user.PasswordHash, user.PasswordSalt))
+            if (user == null || !HashHelper.VerifyPasswordHash(loginDto.Password, user.PasswordSalt, user.PasswordHash))
             {
                 return new ErrorDataResult<User>(Messages.LoginError);
             }
@@ -50,15 +50,15 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<User>(user, Messages.LoginSuccess);
         }
 
-        public IDataResult<User> Register(RegisterDto userForRegisterDto)
+        public IDataResult<User> Register(RegisterDto registerDto)
         {
-            HashHelper.CreatePasswordHash(userForRegisterDto.Password, out byte[] salt, out byte[] hash);
+            HashHelper.CreatePasswordHash(registerDto.Password, out byte[] salt, out byte[] hash);
 
             var user = new User
             {
-                FirstName = userForRegisterDto.FirstName,
-                LastName = userForRegisterDto.LastName,
-                Email = userForRegisterDto.Email,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Email = registerDto.Email,
                 PasswordSalt = salt,
                 PasswordHash = hash,
                 Status = true

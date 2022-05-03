@@ -17,6 +17,7 @@ namespace RentACarPro.DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(ConnectionStrings.RentACarProDb);
         }
 
+#nullable disable
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Series> Series { get; set; }

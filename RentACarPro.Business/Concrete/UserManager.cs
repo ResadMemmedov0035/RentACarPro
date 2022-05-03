@@ -1,5 +1,6 @@
 ﻿using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
+using Core.Exceptions;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
@@ -38,8 +39,14 @@ namespace RentACarPro.Business.Concrete
 
         public IDataResult<User> GetByEmail(string email)
         {
-            try { return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email)); }
-            catch { return new ErrorDataResult<User>(); }
+            try 
+            {
+                return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email), Messages.ItemRecieved); 
+            }
+            catch (EntityNotFoundException<User> e)
+            {
+                return new ErrorDataResult<User>(e.Message);
+            }
             
         }
 

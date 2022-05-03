@@ -1,4 +1,5 @@
 ﻿using Core.Aspects.Autofac.Validation;
+using Core.Exceptions;
 using Core.Utilities.Results;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Constants;
@@ -29,8 +30,14 @@ namespace RentACarPro.Business.Concrete
 
         public IDataResult<Customer> GetById(int id)
         {
-            var data = _customerDal.Get(c => c.Id == id);
-            return new SuccessDataResult<Customer>(data, Messages.ItemRecieved);
+            try
+            {
+                return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id), Messages.ItemRecieved);
+            }
+            catch (EntityNotFoundException<Customer> e)
+            {
+                return new ErrorDataResult<Customer>(e.Message);
+            }
         }
 
         [ValidationAspect(typeof(CustomerValidator))]

@@ -26,6 +26,13 @@ namespace RentACarPro.Business.Concrete
             _fileHelper = fileHelper;
         }
 
+        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
+        {
+            var images = _carImageDal.GetAll(ci => ci.CarId == carId);
+            if (images.Count == 0) images.Add(new CarImage { ImagePath = _defaultImage });
+            return new SuccessDataResult<List<CarImage>>(images);
+        }
+
         public IResult Add(int carId, IFormFile file)
         {
             IResult? errorResult = BusinessRule.Run(
@@ -44,21 +51,6 @@ namespace RentACarPro.Business.Concrete
             return new SuccessResult(Messages.AddSuccess);
         }
 
-        public IResult Delete(int id)
-        {
-            var image = _carImageDal.Get(ci => ci.Id == id);
-            _fileHelper.Delete(image.ImagePath);
-            _carImageDal.Delete(image);
-            return new SuccessResult(Messages.DeleteSuccess);
-        }
-
-        public IDataResult<List<CarImage>> GetAllByCarId(int carId)
-        {
-            var images = _carImageDal.GetAll(ci => ci.CarId == carId);
-            if (images.Count == 0) images.Add(new CarImage { ImagePath = _defaultImage });
-            return new SuccessDataResult<List<CarImage>>(images);
-        }
-
         public IResult Update(int id, IFormFile file)
         {
             var image = _carImageDal.Get(ci => ci.Id == id);
@@ -67,6 +59,16 @@ namespace RentACarPro.Business.Concrete
             _carImageDal.Update(image);
 
             return new SuccessResult(Messages.UpdateSuccess);
+        }
+
+        public IResult Delete(int id)
+        {
+            var image = _carImageDal.Get(ci => ci.Id == id);
+
+            _fileHelper.Delete(image.ImagePath);
+            _carImageDal.Delete(image);
+            
+            return new SuccessResult(Messages.DeleteSuccess);
         }
 
         private IResult CheckIfCarImageLimitExceeded(int carId)

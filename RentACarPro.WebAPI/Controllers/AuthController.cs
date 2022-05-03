@@ -16,13 +16,13 @@ namespace RentACarPro.WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto userForLoginDto)
+        public IActionResult Login(LoginDto loginDto)
         {
-            var loginResult = _authService.Login(userForLoginDto);
+            var loginResult = _authService.Login(loginDto);
 
             if (!loginResult.Success)
             {
-                return BadRequest(loginResult.Message);
+                return BadRequest(loginResult);
             }
 
             if (loginResult.Data != null)
@@ -31,7 +31,7 @@ namespace RentACarPro.WebAPI.Controllers
 
                 if (!result.Success) 
                 {
-                    return BadRequest(result.Message);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }
@@ -39,13 +39,13 @@ namespace RentACarPro.WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterDto userForRegisterDto)
+        public IActionResult Register(RegisterDto registerDto)
         {
-            var registerResult = _authService.Register(userForRegisterDto);
+            var registerResult = _authService.Register(registerDto);
 
             if (!registerResult.Success)
             {
-                return BadRequest(registerResult.Message);
+                return BadRequest(registerResult);
             }
 
             if (registerResult.Data != null)
@@ -54,7 +54,7 @@ namespace RentACarPro.WebAPI.Controllers
 
                 if (!result.Success) 
                 {
-                    return BadRequest(result.Message);
+                    return BadRequest(result);
                 }
                 return Ok(result);
             }

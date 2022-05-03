@@ -21,7 +21,7 @@ namespace RentACarPro.Business.Constants
         public const string CarImageLimitExceeded = "Image count limit exceeded for the car.";
 
         public const string UserAlreadyExists = "User has already exists.";
-        public const string UserNotFound = "User has not fount.";
+        public const string UserNotFound = "User has not found.";
         public const string LoginError = "Invalid login. Email or password is wrong.";
         public const string LoginSuccess = "Login has been successful.";
         public const string RegisterSuccess = "User has been registered.";

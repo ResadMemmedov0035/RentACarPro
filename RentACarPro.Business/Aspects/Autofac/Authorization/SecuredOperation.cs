@@ -16,8 +16,8 @@ namespace RentACarPro.Business.Aspects.Autofac.Authorization
         public SecuredOperation(string roles)
         {
             _roles = roles.Split(',');
-            // Service provide have not created yet. Please create this. And register IHttpContextAccessor service.
-            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>() ?? 
+
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>() ??
                                    throw new Exception("IHttpContextAccessor can't be null.");
         }
 

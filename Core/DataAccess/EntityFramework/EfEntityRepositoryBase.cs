@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Core.DataAccess.EntityFramework
         {
             using var context = new TDbContext();
 
-            return context.Set<TEntity>().Single(filter);
+            return context.Set<TEntity>().SingleOrDefault(filter) ?? throw new EntityNotFoundException<TEntity>(filter);
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null)

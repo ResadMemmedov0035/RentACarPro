@@ -1,5 +1,6 @@
 ﻿using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Exceptions;
 using Core.Utilities.Results;
 using FluentValidation;
 using RentACarPro.Business.Abstract;
@@ -48,8 +49,14 @@ namespace RentACarPro.Business.Concrete
 
         public IDataResult<Car> GetById(int id)
         {
-            var item = _carDal.Get(c => c.Id == id);
-            return new SuccessDataResult<Car>(item, Messages.ItemRecieved);
+            try
+            {
+                return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id), Messages.ItemRecieved);
+            }
+            catch (EntityNotFoundException<Car> e)
+            {
+                return new ErrorDataResult<Car>(e.Message);
+            }
         }
 
         [SecuredOperation("car.add")]

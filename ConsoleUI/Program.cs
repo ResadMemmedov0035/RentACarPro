@@ -7,9 +7,19 @@ using RentACarPro.Business.Concrete;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
+using Core.Exceptions;
 
 ICarDal dal = new EfCarDal();
-var car = dal.Get(c => c.Id == 1212);
+
+
+//try 
+//{
+//    var car = dal.Get(c => c.Id == 1212); 
+//}
+//catch (EntityNotFoundException<Car> e)
+//{
+//    Console.WriteLine(e.Message);
+//}
 
 //var securityKey = .CreateSecurityKey("ultrasecretkey");
 //var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);

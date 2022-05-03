@@ -1,5 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,7 +30,8 @@ builder.Services.AddSwaggerGen();
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -42,6 +46,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddCoreModules(new ICoreModule[]
+{
+    new CoreModule()
+});
+
+// for manual service providing
+ServiceTool.SetProvider(builder.Services);
 
 var app = builder.Build();
 
