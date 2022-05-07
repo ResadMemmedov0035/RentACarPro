@@ -54,6 +54,28 @@ builder.Services.AddCoreModules(new ICoreModule[]
 // for manual service providing
 ServiceTool.SetProvider(builder.Services);
 
+/// <summary>
+/// WinForm service providing
+/// </summary>
+
+//var winformServices = new ServiceCollection();
+//var containerBuilder = new ContainerBuilder();
+
+//containerBuilder.Populate(
+//    winformServices.AddCoreModules(new ICoreModule[]
+//{
+//    new CoreModule()
+//}));
+//containerBuilder.RegisterModule<AutofacBusinessModule>();
+
+//ServiceTool.SetProvider(new AutofacServiceProvider(containerBuilder.Build()));
+
+//var testA = ServiceTool.ServiceProvider.GetService<IUserService>();
+//var testB = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

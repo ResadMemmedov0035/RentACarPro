@@ -20,6 +20,11 @@ namespace Core.Utilities.IoC
             ServiceProvider = services.BuildServiceProvider();
         }
 
+        //public static void SetProvider(IServiceProvider provider)
+        //{
+        //    ServiceProvider = provider;
+        //}
+
         //public static void SetAutofacProvider(ContainerBuilder builder) 
         //{
         //    ServiceProvider = new AutofacServiceProvider(builder.Build());
