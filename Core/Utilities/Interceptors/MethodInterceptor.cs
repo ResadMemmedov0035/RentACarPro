@@ -5,13 +5,13 @@ namespace Core.Utilities.Interceptors
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public abstract class MethodInterceptor : Attribute, IInterceptor
     {
-        //invocation = business method
+        //invocation = method
         protected virtual void OnBefore(IInvocation invocation) { }
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, Exception e) { }
         protected virtual void OnSuccess(IInvocation invocation) { }
 
-        public void Intercept(IInvocation invocation)
+        public virtual void Intercept(IInvocation invocation)
         {
             var isSuccess = true;
 

@@ -1,4 +1,5 @@
-﻿using Core.Aspects.Autofac.Validation;
+﻿using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Exceptions;
 using Core.Utilities.Results;
@@ -27,6 +28,7 @@ namespace RentACarPro.Business.Concrete
             _carDal = carDal;
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.AllRecieved);
@@ -47,6 +49,7 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.AllRecieved);
         }
 
+        [CacheAspect]
         public IDataResult<Car> GetById(int id)
         {
             try

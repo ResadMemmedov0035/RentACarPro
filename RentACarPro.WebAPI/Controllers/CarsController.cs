@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Aspects.Autofac.Caching;
+using Microsoft.AspNetCore.Mvc;
 using RentACarPro.Business.Abstract;
+using RentACarPro.Business.Concrete;
 using RentACarPro.Entities.Concrete;
 
 namespace RentACarPro.WebAPI.Controllers

@@ -15,9 +15,10 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
     {
         private readonly IMemoryCache _memoryCache;
 
-        public MemoryCacheManager()
+        public MemoryCacheManager(IMemoryCache memoryCache)
         {
-            _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>() ?? throw new Exception("IMemoryCache can't be null");
+            _memoryCache = memoryCache;
+                //ServiceTool.ServiceProvider.GetService<IMemoryCache>() ?? throw new Exception("IMemoryCache can't be null");
         }
 
         public void Add(string key, object value, int duration)
