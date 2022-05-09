@@ -28,7 +28,7 @@ namespace Core.Aspects.Autofac.Caching
             string argumentCombination = string.Join(',', invocation.Arguments.Select(a => a?.ToString()));
             string key = $"{methodName}({argumentCombination})";
 
-            if (_cacheService.Contains(key)) 
+            if (_cacheService.Contains(key))
             {
                 invocation.ReturnValue = _cacheService.Get(key);
                 return;

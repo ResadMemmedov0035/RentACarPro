@@ -15,6 +15,7 @@ using Core.Utilities.IoC;
 using RentACarPro.Business.DependencyResolvers.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Core.Utilities.Helpers.FormFileHelpers;
 
 IServiceCollection services = new ServiceCollection();
 services.AddCoreModules(new Core.Utilities.IoC.ICoreModule[]
@@ -29,6 +30,11 @@ containerBuilder.RegisterModule<AutofacBusinessModule>();
 ServiceTool.SetProvider(new AutofacServiceProvider(containerBuilder.Build()));
 
 ICarService service = ServiceTool.ServiceProvider.GetService<ICarService>() ?? throw new Exception();
+
+service.GetAll();
+service.GetAll();
+
+
 
 //service.AddTransactional(new Car
 //{

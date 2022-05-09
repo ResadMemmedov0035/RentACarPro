@@ -5,6 +5,8 @@ namespace Core.Utilities.Interceptors
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public abstract class MethodInterceptor : Attribute, IInterceptor
     {
+        public int Priority { get; set; } = 10;
+
         //invocation = method
         protected virtual void OnBefore(IInvocation invocation) { }
         protected virtual void OnAfter(IInvocation invocation) { }

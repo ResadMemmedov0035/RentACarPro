@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using Core.Aspects.Autofac.Performance;
 using System.Reflection;
 
 namespace Core.Utilities.Interceptors
@@ -13,7 +14,9 @@ namespace Core.Utilities.Interceptors
             if (methodAttributes != null)
                 classAttributes.AddRange(methodAttributes);
 
-            return classAttributes.ToArray();
+            classAttributes.Add(new PerformanceAspect(interval: 10, justIssues: false) { Priority = 1 });
+
+            return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
     }
 }
