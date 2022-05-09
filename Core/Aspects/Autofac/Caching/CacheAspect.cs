@@ -14,12 +14,12 @@ namespace Core.Aspects.Autofac.Caching
     public class CacheAspect : MethodInterceptor
     {
         private readonly int _duration;
-        private readonly ICacheService _cacheService;
+        private readonly ICacheManager _cacheService;
 
         public CacheAspect(int duration = 60)
         {
             _duration = duration;
-            _cacheService = ServiceTool.ServiceProvider.GetService<ICacheService>() ?? throw new Exception("ICacheService can't be null.");
+            _cacheService = ServiceTool.ServiceProvider.GetService<ICacheManager>() ?? throw new Exception("ICacheService can't be null.");
         }
 
         public override void Intercept(IInvocation invocation)

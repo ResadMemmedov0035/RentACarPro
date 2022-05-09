@@ -8,8 +8,37 @@ using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using Core.Exceptions;
+using Microsoft.Extensions.DependencyInjection;
+using Core.Extensions;
+using Core.DependencyResolvers;
+using Core.Utilities.IoC;
+using RentACarPro.Business.DependencyResolvers.Autofac;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
-ICarDal dal = new EfCarDal();
+IServiceCollection services = new ServiceCollection();
+services.AddCoreModules(new Core.Utilities.IoC.ICoreModule[]
+{
+    new CoreModule()
+});
+
+var containerBuilder = new ContainerBuilder();
+containerBuilder.Populate(services);
+containerBuilder.RegisterModule<AutofacBusinessModule>();
+
+ServiceTool.SetProvider(new AutofacServiceProvider(containerBuilder.Build()));
+
+ICarService service = ServiceTool.ServiceProvider.GetService<ICarService>() ?? throw new Exception();
+
+//service.AddTransactional(new Car
+//{
+//    BrandId = 2,
+//    ModelId = 2,
+//    ColorId = 2,
+//    ModelYear = 2005,
+//    DailyPrice = 20,
+//    Description = "",
+//});
 
 
 //try 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
 {
-    public class MemoryCacheManager : ICacheService
+    public class MemoryCacheManager : ICacheManager
     {
         private readonly IMemoryCache _memoryCache;
 

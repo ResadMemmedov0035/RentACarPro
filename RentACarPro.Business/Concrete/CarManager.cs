@@ -1,9 +1,8 @@
 ﻿using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
-using Core.CrossCuttingConcerns.Validation;
 using Core.Exceptions;
 using Core.Utilities.Results;
-using FluentValidation;
 using RentACarPro.Business.Abstract;
 using RentACarPro.Business.Aspects.Autofac.Authorization;
 using RentACarPro.Business.Constants;
@@ -87,6 +86,16 @@ namespace RentACarPro.Business.Concrete
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.DeleteSuccess);
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactional(Car car)
+        {
+            Add(car);
+            throw new Exception();
+            Add(car);
+
+            return null;
         }
     }
 }
