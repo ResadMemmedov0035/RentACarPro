@@ -47,9 +47,8 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
         public void RemoveByPattern(string pattern)
         {
-            // belke duzenlene biler
-            var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", BindingFlags.NonPublic | BindingFlags.Instance);
-            var cacheEntriesCollection = cacheEntriesCollectionDefinition?.GetValue(_memoryCache) as dynamic;
+            var cacheEntriesCollection = typeof(MemoryCache).GetProperty("EntriesCollection", BindingFlags.NonPublic | BindingFlags.Instance)?
+                                                            .GetValue(_memoryCache) as dynamic ?? throw new Exception();
             var cacheCollectionKeys = new List<string>();
 
             foreach (var cacheItem in cacheEntriesCollection)
@@ -69,4 +68,4 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
     }
 }
-}
+
