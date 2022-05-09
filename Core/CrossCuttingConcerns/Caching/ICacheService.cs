@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.CrossCuttingConcerns.Caching
 {
+    // name may change //
     public interface ICacheService
     {
         T Get<T>(string key);

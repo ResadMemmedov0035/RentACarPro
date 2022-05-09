@@ -17,19 +17,7 @@ namespace RentACarPro.WebAPI.Controllers
             _carService = carService;
         }
 
-        [HttpGet("get/{id}")]
-        public IActionResult GetById(int id)
-        {
-            var result = _carService.GetById(id);
-
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getall")]
+        [HttpGet]
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
@@ -41,7 +29,19 @@ namespace RentACarPro.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getallbybrand")]
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var result = _carService.GetById(id);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("bybrand/{brandId}")]
         public IActionResult GetByBrand(int brandId)
         {
             var result = _carService.GetAllByBrandId(brandId);
@@ -53,7 +53,7 @@ namespace RentACarPro.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getallbycolor")]
+        [HttpGet("bycolor/{colorId}")]
         public IActionResult GetByColor(int colorId)
         {
             var result = _carService.GetAllByColorId(colorId);
@@ -65,7 +65,7 @@ namespace RentACarPro.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getalldetails")]
+        [HttpGet("details")]
         public IActionResult GetAllDetails()
         {
             var result = _carService.GetAllDetails();

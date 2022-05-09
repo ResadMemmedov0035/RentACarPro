@@ -33,6 +33,7 @@ namespace RentACarPro.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 
+            // move to core module //
             builder.RegisterType<FormImageHelper>().As<IFormImageHelper>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
 

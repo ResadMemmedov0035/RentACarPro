@@ -34,16 +34,19 @@ namespace RentACarPro.Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.AllRecieved);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAllByBrandId(int brandId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), Messages.AllRecieved);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAllByColorId(int colorId)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId), Messages.AllRecieved);
         }
 
+        [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetAllDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.AllRecieved);
@@ -64,6 +67,7 @@ namespace RentACarPro.Business.Concrete
 
         [SecuredOperation("car.add")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -71,12 +75,14 @@ namespace RentACarPro.Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.UpdateSuccess);
         }
 
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);

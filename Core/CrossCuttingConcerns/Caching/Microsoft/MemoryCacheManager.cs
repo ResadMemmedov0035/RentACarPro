@@ -18,7 +18,6 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
         public MemoryCacheManager(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
-                //ServiceTool.ServiceProvider.GetService<IMemoryCache>() ?? throw new Exception("IMemoryCache can't be null");
         }
 
         public void Add(string key, object value, int duration)
@@ -48,23 +47,26 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
         public void RemoveByPattern(string pattern)
         {
+            // belke duzenlene biler
             var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", BindingFlags.NonPublic | BindingFlags.Instance);
             var cacheEntriesCollection = cacheEntriesCollectionDefinition?.GetValue(_memoryCache) as dynamic;
-            var cacheCollectionValues = new List<ICacheEntry>();
+            var cacheCollectionKeys = new List<string>();
 
             foreach (var cacheItem in cacheEntriesCollection)
             {
-                ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
-                cacheCollectionValues.Add(cacheItemValue);
+                string key = cacheItem.GetType().GetProperty("Key").GetValue(cacheItem);
+                cacheCollectionKeys.Add(key);
             }
 
             var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-            var keysToRemove = cacheCollectionValues.Where(d => regex.IsMatch(d.Key.ToString())).Select(d => d.Key).ToList();
+            var keysToRemove = cacheCollectionKeys.Where(key => regex.IsMatch(key));
 
             foreach (var key in keysToRemove)
             {
                 _memoryCache.Remove(key);
             }
         }
+
     }
+}
 }
